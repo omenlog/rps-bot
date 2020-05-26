@@ -11,3 +11,9 @@ node_modules/
 
 # Build files
 lib/
+
+#config file
+functions/config.json
+
+#Editor settings
+.vscode/
