@@ -7,7 +7,7 @@ import redis from 'redis';
 import config from './config';
 import { TelegrafContext } from 'telegraf/typings/context';
 
-const bot = new Telegraf(config.bot.key);
+const bot = new Telegraf(config.bot.token);
 
 enum Options {
   Stone = 'Stone',

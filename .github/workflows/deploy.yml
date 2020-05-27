@@ -22,7 +22,7 @@ jobs:
       - name: Compile application
         working-directory: ./functions
         run: |
-          echo {} > config.json
+          cp etc/config.sample.json etc/config.json
           npm run build
       - name: Deploy to firebase
         uses: w9jds/firebase-action@master

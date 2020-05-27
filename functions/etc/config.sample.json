@@ -1,0 +1,10 @@
+{
+  "bot": {
+    "token": "bot_token"
+  },
+  "redis": {
+    "host": "redis_host",
+    "password": "redis_pass",
+    "port": 6379
+  }
+}

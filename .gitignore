@@ -13,7 +13,7 @@ node_modules/
 lib/
 
 #config file
-functions/config.json
+functions/etc/config.json
 
 #Editor settings
 .vscode/

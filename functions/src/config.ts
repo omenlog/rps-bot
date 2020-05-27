@@ -1,25 +1,23 @@
 import * as functions from 'firebase-functions';
-import devConfig from '../env.json';
+import devConfig from '../etc/config.json';
 
 type Config = {
-    bot:{
-        key: string
-    },
-    redis:{
-        host: string,
-        password: string,
-        port: number
-    }
-}
+  bot: {
+    token: string;
+  };
+  redis: {
+    host: string;
+    password: string;
+    port: number;
+  };
+};
 
 let config: Config;
 
-if(process.env.NODE_ENV === 'production'){
-    config = <Config>functions.config();
+if (process.env.NODE_ENV === 'production') {
+  config = <Config>functions.config();
+} else {
+  config = devConfig as any;
 }
-else{
-    config = devConfig;
-}
-
 
 export default config;
