@@ -19,6 +19,7 @@
     "firebase-functions": "^3.6.1",
     "redis": "^3.0.2",
     "telegraf": "^3.38.0",
+    "telegraf-session-redis": "^5.1.0",
     "uuid": "^8.1.0"
   },
   "devDependencies": {
