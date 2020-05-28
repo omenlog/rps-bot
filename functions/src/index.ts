@@ -22,11 +22,11 @@ bot.command('init', async (context) => {
   };
 
   return ctx.reply(
-    `<b>${user}</b> desea jugar a piedra papel y tijera`,
+    `@${user} desea jugar a piedra papel y tijera`,
     Extra.HTML().markup((m: any) =>
       m.inlineKeyboard([
         m.callbackButton(
-          'Aceptar Duelo',
+          'Aceptar 😎👊',
           `init_fight ${ctx.state.gameId} ${user}`
         ),
       ])
@@ -48,12 +48,12 @@ bot.action(/init_fight (.+) (.+)/, async (context) => {
   const gameId = ctx.state.gameId;
 
   return ctx.reply(
-    `<b>${user2} ha aceptado jugar con ${user1}</b>`,
+    `@${user2} enfrentando a @${user1}`,
     Extra.HTML().markup((m: any) =>
       m.inlineKeyboard([
-        m.callbackButton('Piedra', `stone ${gameId}`),
-        m.callbackButton('Papel', `paper ${gameId}`),
-        m.callbackButton('Tijera', `scissor ${gameId}`),
+        m.callbackButton('Piedra 🗿', `stone ${gameId}`),
+        m.callbackButton('Papel 🧻', `paper ${gameId}`),
+        m.callbackButton('Tijera ✂️', `scissor ${gameId}`),
       ])
     )
   );
@@ -65,15 +65,23 @@ async function getResults(game: GameData): Promise<string> {
 
   switch (gameString) {
     case `${Options.Stone}-${Options.Scissors}`:
+      return `Ganador @${user1} 🗿 - Perdedor @${user2} ✂️`;
     case `${Options.Scissors}-${Options.Paper}`:
+      return `Ganador @${user1} ✂️ - Perdedor @${user2} 🧻`;
     case `${Options.Paper}-${Options.Stone}`:
-      return `Ganador ${user1} - Perdedor ${user2}\n${game.user1Choice} - ${game.user2Choice}`;
+      return `Ganador @${user1} 🧻 - Perdedor ${user2} 🗿`;
     case `${Options.Stone}-${Options.Paper}`:
+      return `Ganador @${user2} 🧻 - @${user1} 🗿`;
     case `${Options.Scissors}-${Options.Stone}`:
+      return `Ganador @${user2} 🗿 - @${user1} ✂️`;
     case `${Options.Paper}-${Options.Scissors}`:
-      return `Perdedor ${user1} - Ganador ${user2}\n${game.user1Choice} - ${game.user2Choice}`;
+      return `Ganador @${user2} ✂️ - @${user1} 🧻`;
+    case `${Options.Paper}-${Options.Paper}`:
+      return `Ambos jugadores empapelados 🧻`;
+    case `${Options.Scissors}-${Options.Scissors}`:
+      return `Empatados por ✂️`;
     default:
-      return `Empate\n${gameString}`;
+      return `Ambos jugadores se ponen de 🗿`;
   }
 }
 
