@@ -7,7 +7,7 @@ const redisSession = new RedisSession({
     password: config.redis.password,
     port: config.redis.port,
   },
-  ttl: 60,
+  ttl: config.redis.ttl,
   getSessionKey: (ctx) => ctx.state.gameId,
 });
 
