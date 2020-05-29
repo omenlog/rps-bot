@@ -6,7 +6,7 @@ async function gameIdSetup(context: TelegrafContext, next: any) {
   const ctx = context as Context;
   if (ctx.message !== undefined) {
     const message = ctx.message.text;
-    const initResults = /\/init/g.exec(message!);
+    const initResults = /\/start@rps/g.exec(message!);
     if (initResults !== null) {
       ctx.state.gameId = uuidv1();
     } else {

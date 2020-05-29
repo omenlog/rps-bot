@@ -12,7 +12,7 @@ const bot = new Telegraf(config.bot.token);
 bot.use(gameIdSetup);
 bot.use(redisSession);
 
-bot.command('init', async (context) => {
+bot.command('start@rps', async (context) => {
   const ctx = context as Context;
   const user = ctx.from?.username;
 
@@ -25,21 +25,24 @@ bot.command('init', async (context) => {
     `@${user} desea jugar a piedra papel y tijera`,
     Extra.HTML().markup((m: any) =>
       m.inlineKeyboard([
-        m.callbackButton(
-          'Aceptar 😎👊',
-          `init_fight ${ctx.state.gameId} ${user}`
-        ),
+        m.callbackButton('Aceptar 😎👊', `init_fight ${ctx.state.gameId}`),
       ])
     )
   );
 });
 
-bot.action(/init_fight (.+) (.+)/, async (context) => {
+bot.action(/init_fight (.+)/, async (context) => {
   const ctx = context as Context;
-  await ctx.answerCbQuery('Hello');
+
+  if (ctx.session.user1 === undefined) {
+    await ctx.answerCbQuery('🙄 este juego caducó , inicia uno nuevo', true);
+    return ctx.deleteMessage();
+  }
 
   const user2 = ctx.from?.username;
-  const user1 = ctx.match![2];
+  if (user2 === ctx.session.user1) {
+    return ctx.answerCbQuery('Por el momento no puedes jugar contra ti 😀');
+  }
 
   ctx.session.user2 = user2;
   ctx.session.configured = true;
@@ -48,7 +51,7 @@ bot.action(/init_fight (.+) (.+)/, async (context) => {
   const gameId = ctx.state.gameId;
 
   return ctx.editMessageText(
-    `@${user2} enfrentando a @${user1}`,
+    `@${user2} enfrentando a @${ctx.session.user1}`,
     Extra.HTML().markup((m: any) =>
       m.inlineKeyboard([
         m.callbackButton('Piedra 🗿', `stone ${gameId}`),
