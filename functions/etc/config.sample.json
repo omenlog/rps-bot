@@ -5,6 +5,7 @@
   "redis": {
     "host": "redis_host",
     "password": "redis_pass",
+    "ttl": 60,
     "port": 6379
   }
 }
