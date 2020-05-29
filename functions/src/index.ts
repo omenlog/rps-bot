@@ -36,7 +36,7 @@ bot.command('init', async (context) => {
 
 bot.action(/init_fight (.+) (.+)/, async (context) => {
   const ctx = context as Context;
-  await ctx.answerCbQuery();
+  await ctx.answerCbQuery('Hello');
 
   const user2 = ctx.from?.username;
   const user1 = ctx.match![2];
@@ -47,7 +47,7 @@ bot.action(/init_fight (.+) (.+)/, async (context) => {
 
   const gameId = ctx.state.gameId;
 
-  return ctx.reply(
+  return ctx.editMessageText(
     `@${user2} enfrentando a @${user1}`,
     Extra.HTML().markup((m: any) =>
       m.inlineKeyboard([
@@ -90,8 +90,7 @@ async function runPlay(ctx: Context) {
   const { plays } = ctx.session;
   if (plays === 2) {
     const results = await getResults(ctx.session as GameData);
-    await ctx.reply(results);
-    /* destroying data */
+    await ctx.editMessageText(results);
   } else {
     await ctx.answerCbQuery('Esperando que juege el otro jugador');
   }
@@ -100,7 +99,6 @@ async function runPlay(ctx: Context) {
 function processChoice(choice: Options) {
   return async function (context: TelegrafContext) {
     const ctx = context as Context;
-    await ctx.answerCbQuery();
 
     const user = ctx.from?.username;
 
