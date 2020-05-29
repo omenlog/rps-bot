@@ -10,3 +10,15 @@ export type GameData = {
   user2: string;
   user2Choice: string;
 };
+
+export type Config = {
+  bot: {
+    token: string;
+  };
+  redis: {
+    host: string;
+    password: string;
+    port: number;
+    ttl: number;
+  };
+};

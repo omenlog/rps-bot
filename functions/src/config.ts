@@ -1,16 +1,6 @@
 import * as functions from 'firebase-functions';
 import devConfig from '../etc/config.json';
-
-type Config = {
-  bot: {
-    token: string;
-  };
-  redis: {
-    host: string;
-    password: string;
-    port: number;
-  };
-};
+import { Config } from './types/game';
 
 let config: Config;
 
