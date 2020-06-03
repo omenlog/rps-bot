@@ -13,7 +13,7 @@ bot.use(gameIdSetup);
 bot.use(redisSession);
 
 bot.command('start@rps', async (context) => {
-  const ctx = context as Context;
+  const ctx = context as any;
   const user = ctx.from?.username;
 
   ctx.session = {
@@ -21,13 +21,18 @@ bot.command('start@rps', async (context) => {
     configured: false,
   };
 
-  return ctx.reply(
-    `@${user} desea jugar a piedra papel y tijera`,
-    Extra.HTML().markup((m: any) =>
-      m.inlineKeyboard([
-        m.callbackButton('Aceptar 😎👊', `init_fight ${ctx.state.gameId}`),
-      ])
-    )
+  return ctx.replyWithPhoto(
+    {
+      url: config.images.initial,
+      filename: 'pepe',
+    },
+    Extra.load({ caption: `@${user} desea jugar a piedra papel y tijera` })
+      .markdown()
+      .markup((m: any) =>
+        m.inlineKeyboard([
+          m.callbackButton('Aceptar 😎👊', `init_fight ${ctx.state.gameId}`),
+        ])
+      )
   );
 });
 
@@ -50,7 +55,8 @@ bot.action(/init_fight (.+)/, async (context) => {
 
   const gameId = ctx.state.gameId;
 
-  return ctx.editMessageText(
+  await ctx.deleteMessage();
+  return ctx.reply(
     `@${user2} enfrentando a @${ctx.session.user1}`,
     Extra.HTML().markup((m: any) =>
       m.inlineKeyboard([
