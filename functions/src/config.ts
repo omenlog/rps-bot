@@ -1,6 +1,6 @@
 import * as functions from 'firebase-functions';
 import devConfig from '../etc/config.json';
-import { Config } from './types/game';
+import { Config } from '@bot/types';
 
 let config: Config;
 
