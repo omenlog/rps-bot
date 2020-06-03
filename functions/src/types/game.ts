@@ -21,4 +21,7 @@ export type Config = {
     port: number;
     ttl: number;
   };
+  images: {
+    initial: string;
+  };
 };
