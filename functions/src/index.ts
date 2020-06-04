@@ -22,6 +22,11 @@ bot.action(/stone (.+)/, processChoice(Options.Stone));
 bot.action(/scissor (.+)/, processChoice(Options.Scissors));
 bot.action(/paper (.+)/, processChoice(Options.Paper));
 
+bot.catch((err: any, ctx: any) => {
+  console.log(`Ooops, encountered an error for ${ctx.updateType}`, err);
+  ctx.reply('');
+});
+
 if (process.env.NODE_ENV !== 'production') {
   bot.launch();
 }

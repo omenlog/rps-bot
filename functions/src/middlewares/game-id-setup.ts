@@ -10,7 +10,6 @@ async function gameIdSetup(context: TelegrafContext, next: any) {
     const initResults = /\/start@ppt/g.exec(message!);
     if (initResults !== null) {
       ctx.state.gameId = uuidv1();
-      return next();
     } else {
       console.log('Mensaje desconocido');
       console.log(ctx);
@@ -21,7 +20,6 @@ async function gameIdSetup(context: TelegrafContext, next: any) {
     const generalResults = /(\S+) (\S+)/g.exec(message!);
     if (generalResults !== null) {
       ctx.state.gameId = generalResults[2];
-      return next();
     } else {
       console.log('en el callback llego terror');
       ctx.reply('Operacion desconocida');
