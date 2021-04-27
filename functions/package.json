@@ -18,7 +18,7 @@
     "firebase-admin": "^8.10.0",
     "firebase-functions": "^3.6.1",
     "module-alias": "^2.2.2",
-    "redis": "^3.0.2",
+    "redis": "^3.1.1",
     "telegraf": "^3.38.0",
     "telegraf-session-redis": "^5.1.0",
     "uuid": "^8.1.0"
